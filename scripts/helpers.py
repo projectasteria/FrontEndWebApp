@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# from scripts import tabledef
-import tabledef
+from scripts import tabledef
+#import tabledef
 from flask import session
 from sqlalchemy.orm import sessionmaker
 from contextlib import contextmanager
