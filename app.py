@@ -23,7 +23,7 @@ db=SQLAlchemy(app)
 
 class User(db.Model):
 	"""
-	Represents a user of the app
+	Represents a users of the app
 	"""
 	__tablename__ = "user"
 	id = db.Column(db.Integer, primary_key=True)
