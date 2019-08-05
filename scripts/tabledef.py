@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
+# Local
 SQLALCHEMY_DATABASE_URI = 'sqlite:///accounts.db'
+
+# Heroku
+#SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 Base = declarative_base()
 
@@ -23,7 +28,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String(30), unique=True)
-    password = Column(String(30))
+    password = Column(String(512))
     email = Column(String(50))
 
     def __repr__(self):
