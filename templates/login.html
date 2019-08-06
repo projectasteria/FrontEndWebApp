@@ -1,3 +1,4 @@
+<!-- LOGINPAGE ALIVE TEST -->
 {% extends "base.html" %}
 {% block body %}
 <section class="hero is-white is-medium">
@@ -34,18 +35,14 @@
                 </span>
             </p>
           </div>
-
         </a>
         <span class="navbar-item">
-          <a id="login-button" class="button is-primary" name = "Hello" value="login">
+          <a id="login-button" class="button is-primary is-inverted">
             <span class="icon">
               <i class="fa fa-check"></i>
             </span>
             <span>Login</span>
           </a>
-          <form action="forgotpassword">
-          <button class="button is-primary is-inverted" type="submit">Forgot Password</button>
-          </form>
         </span>
       </div>
     </div>
@@ -62,7 +59,7 @@
           <p class="subtitle is-4"><i>Machine Learning Simplified</i></p>
           <p class="subtitle is-5">&#x2022 Web Based Image Classifier</p>
           <p class="subtitle is-5">&#x2022 Ready to go prediction system</p>
-          <p class="subtitle is-5">&#x2022 API Centric Cloud/Local Solution</p>           
+          <p class="subtitle is-5">&#x2022 API Centric Cloud/Local Solution</p>            
         </div>
         <div class="column is-auto">
           <div id="signup-box" class="signup-box">
@@ -81,7 +78,7 @@
               </div>
               <div class="field">
                 <p class="control has-icons-left has-icons-right">
-                  <input id="signup-mail" class="input is-success" type="email" placeholder="Email">
+                  <input id="signup-mail" class="input is-success" type="text" placeholder="Email">
                   <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                   </span>
@@ -112,31 +109,6 @@
       </div>
     </div>  
   </div>
-</section>
-<section class="hero">
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered">
-        <p>
-          <strong>Project Asteria</strong> by Team Asteria
-          <span class="icon is-small">
-            <i class="fa fa-copyright"></i>
-          </span>2019</a>
-        </p>
-        <p>
-          <a class="icon has-text-primary" href="https://prateekv.com" target="_blank">
-            <i class="fa fa-globe"></i>
-          </a>          
-          <a class="icon has-text-primary" href="https://github.com/projectasteria" target="_blank">
-            <i class="fa fa-github"></i>
-          </a>
-          <a class="icon has-text-primary" href="mailto:prateekv2804@gmail.com" target="_blank">
-            <i class="fa fa-envelope"></i>
-          </a>
-        </p>
-      </div>
-    </div>
-  </footer>
 </section>
 {% endblock %}
 {% block scripts %}
