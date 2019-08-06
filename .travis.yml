@@ -5,4 +5,4 @@ python:
 before_script: pip install -r requirements.txt
 
 script:
-  - python app.py & python test.py
+  - python app.py & python -m unittest discover tests
