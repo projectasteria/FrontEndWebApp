@@ -9,7 +9,8 @@ from pymongo import MongoClient
 if "credentials.json" not in os.listdir('.'):
     data = {"mongo_username" : os.environ['mongo_username'], "mongo_password": os.environ['mongo_password'], "mongo_ip": os.environ['mongo_ip'], "mongo_port": os.environ['mongo_port']}
 
-data = json.load(open("credentials.json", "r"))
+else:
+    data = json.load(open("credentials.json", "r"))
 
 class User:
     def __init__(self, username, email, password):
