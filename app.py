@@ -7,6 +7,8 @@ import sys
 from flask import Flask, redirect, render_template, request, session, url_for
 
 from scripts import forms, helpers, tabledef
+from scripts import mongodb
+
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asteria"
@@ -27,14 +29,14 @@ def login():
             username = request.form["username"].lower()
             password = request.form["password"]
             if form.validate():
-                if helpers.credentials_valid(username, password):
+                if mongodb.credentials_valid(username, password):   # Changed to Mongo
                     session["logged_in"] = True
                     session["username"] = username
                     return json.dumps({"status": "Login successful"})
                 return json.dumps({"status": "Invalid user/pass"})
             return json.dumps({"status": "Both fields required"})
         return render_template("login.html", form=form)
-    user = helpers.get_user()
+    user = mongodb.get_user()   # Changed to Mongo
     return render_template("home.html", user=user)
 
 
@@ -51,12 +53,12 @@ def signup():
         form = forms.LoginForm(request.form)
         if request.method == "POST":
             username = request.form["username"].lower()
-            password = helpers.hash_password(request.form["password"])
+            password = mongodb.hash_password(request.form["password"])      # Changed to Mongo
             email = request.form["email"]
             if form.validate():
-                if not helpers.username_taken(username):
-                    helpers.add_user(username, password, email)
-                    session["logged_in"] = True
+                if not mongodb.username_taken(username):            # Changed to Mongo  
+                    mongodb.add_user(username, password, email)     # Changed to Mongo
+                    session["logged_in"] = True 
                     session["username"] = username
                     return json.dumps({"status": "Signup successful"})
                 return json.dumps({"status": "Username taken"})
@@ -72,11 +74,11 @@ def settings():
         if request.method == "POST":
             password = request.form["password"]
             if password != "":
-                password = helpers.hash_password(password)
+                password = mongodb.hash_password(password)      # Changed to Mongo
             email = request.form["email"]
-            helpers.change_user(password=password, email=email)
+            mongodb.change_user(password=password, email=email)     # Changed to Mongo
             return json.dumps({"status": "Saved"})
-        user = helpers.get_user()
+        user = mongodb.get_user()                           # Changed to Mongo
         return render_template("settings.html", user=user)
     return redirect(url_for("login"))
 

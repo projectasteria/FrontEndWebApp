@@ -7,3 +7,4 @@ flask-heroku
 gunicorn
 flask_testing
 urllib3
+pymongo
