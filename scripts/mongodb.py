@@ -28,10 +28,10 @@ def add_user(username, password, email):
     client.close()
     return True
 
-def log(action, ip, username, incoming, outgoing):
+def log(action, ip, username, incoming, outgoing, status):
     client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
     collection = client.asteria.logs
-    entry = {"username":username, "action":action, "ip": ip, "incoming": incoming, "outgoing":outgoing}
+    entry = {"username":username.lower(), "action":action, "ip": ip, "incoming": incoming, "outgoing":outgoing, "status":status, "timestamp": datetime.datetime.utcnow()}
     collection.insert_one(entry)
     client.close()
     return True
@@ -72,4 +72,4 @@ def change_user(password, email):
     username = session['username']
     client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
     collection = client.asteria.usercred
-    collection.update_one({'username':username}, {"$set":{"password": password, "email": email}})
+    collection.update_one({'username':username.lower()}, {"$set":{"password": password, "email": email}})
