@@ -13,7 +13,7 @@ from scripts import mongodb
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asteria"
 
-API_URL = "http://localhost:5001"
+API_URL = "https://placeholderapi.herokuapp.com"
 
 # Heroku
 # from flask_heroku import Heroku
@@ -32,16 +32,26 @@ def login():
                 if mongodb.credentials_valid(username, password):   # Changed to Mongo
                     session["logged_in"] = True
                     session["username"] = username
-                    return json.dumps({"status": "Login successful"})
-                return json.dumps({"status": "Invalid user/pass"})
-            return json.dumps({"status": "Both fields required"})
-        return render_template("login.html", form=form)
+                    response = {"status": "Login successful"}
+                    mongodb.log("login", request.remote_addr, username, request.form, response, 200)
+                    return json.dumps(response)
+                response = {"status": "Invalid user/pass"}
+                mongodb.log("login", request.remote_addr, username, request.form, response, 400)
+                return json.dumps(response)
+            response = {"status": "Both fields required"}
+            mongodb.log("login", request.remote_addr, username, request.form, response, 400)
+            return json.dumps(response)
+        response = render_template("login.html", form=form)
+        mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
+        return response
     user = mongodb.get_user()   # Changed to Mongo
+    mongodb.log("visit", request.remote_addr, user.username, "home.html", "-", 200)
     return render_template("home.html", user=user)
 
 
 @app.route("/logout")
 def logout():
+    mongodb.log("logout", request.remote_addr, session['username'], "-", "-", 200)
     session["logged_in"] = False
     return redirect(url_for("login"))
 
@@ -60,10 +70,19 @@ def signup():
                     mongodb.add_user(username, password, email)     # Changed to Mongo
                     session["logged_in"] = True 
                     session["username"] = username
-                    return json.dumps({"status": "Signup successful"})
-                return json.dumps({"status": "Username taken"})
-            return json.dumps({"status": "User/Pass required"})
-        return render_template("login.html", form=form)
+                    response = {"status": "Signup successful"}
+                    mongodb.log("signup", request.remote_addr, username, request.form, response, 200)
+                    return json.dumps(response)
+                response = {"status": "Username taken"}
+                mongodb.log("signup", request.remote_addr, username, request.form, response, 400)
+                return json.dumps(response)
+            response = {"status": "User/Pass required"}
+            mongodb.log("signup", request.remote_addr, username, request.form, response, 400)
+            return json.dumps(response)
+        response = render_template("login.html", form=form)
+        mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
+        return response
+    mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
     return redirect(url_for("login"))
 
 
@@ -77,9 +96,14 @@ def settings():
                 password = mongodb.hash_password(password)      # Changed to Mongo
             email = request.form["email"]
             mongodb.change_user(password=password, email=email)     # Changed to Mongo
-            return json.dumps({"status": "Saved"})
+            response = {"status": "Saved"}
+            mongodb.log("update", request.remote_addr, session['username'], request.form, response, 200)
+            return json.dumps(response)
         user = mongodb.get_user()                           # Changed to Mongo
-        return render_template("settings.html", user=user)
+        response = render_template("settings.html", user=user)
+        mongodb.log("visit", request.remote_addr, "-", "settings.html", "-", 200)
+        return response
+    mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
     return redirect(url_for("login"))
 
 

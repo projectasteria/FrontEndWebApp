@@ -28,5 +28,5 @@ class MyTest(TestCase):
     
     def test_login(self):
         print ("Test Started")
-        r = requests.post(url, data={"username":"logintest", "password":"travisci"})
+        r = requests.post(url, data={"username":"travisci", "password":"travisci"})
         self.assertEqual(r.text, '{"status": "Login successful"}')
