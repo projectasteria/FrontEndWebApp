@@ -13,7 +13,7 @@ from scripts import mongodb
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asteria"
 
-API_URL = "http://localhost:5001"
+API_URL = "https://placeholderapi.herokuapp.com"
 
 # Heroku
 # from flask_heroku import Heroku
