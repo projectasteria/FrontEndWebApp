@@ -1,3 +1,3 @@
 # FrontEndWebApp
 
-Build Status: https://travis-ci.org/projectasteria/PlaceholderAPI.svg?branch=preprod
+Build Status: <img src="https://travis-ci.org/projectasteria/FrontEndWebApp.svg?branch=preprod">
