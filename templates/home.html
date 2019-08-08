@@ -3,7 +3,14 @@
 {% block body %}
 {% include "navbar.html" %}
 <section class="hero is-primary is-bold is-large">
-  <div class="hero-body"></div>
+  <div class="hero-body">
+    
+    List of Users using Project Asteria <br>
+    {% for user in users %}
+    <li class="list-group-item">{{user}}</a>  </li>
+    {% endfor %}
+
+  </div>
 </section>
 {% endblock %}
 {% block scripts %}
