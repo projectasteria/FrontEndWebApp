@@ -3,6 +3,7 @@
 import json
 import os
 import sys
+import requests
 
 from flask import Flask, redirect, render_template, request, session, url_for
 
@@ -12,6 +13,7 @@ from scripts import mongodb
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asteria"
+app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 
 API_URL = "https://placeholderapi.herokuapp.com"
 
@@ -46,7 +48,7 @@ def login():
         return response
     user = mongodb.get_user()   # Changed to Mongo
     mongodb.log("visit", request.remote_addr, user.username, "home.html", "-", 200)
-    return render_template("home.html", user=user)
+    return render_template("home.html", user=user, users = requests.get(API_URL + "/api/v1.0/users").json()["Users"])
 
 
 @app.route("/logout")
