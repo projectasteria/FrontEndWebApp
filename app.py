@@ -122,6 +122,18 @@ def settings():
     mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
     return redirect(url_for("login"))
 
+# -------- Pages ------------------------------------------------------------- #
+@app.route("/start-experiment")
+def start():
+    return render_template('start_experiment.html')
+
+@app.route("/my-experiments")
+def experiments():
+    return render_template('my_experiments.html')
+
+@app.route("/my-account")
+def account():
+    return render_template('my_account.html')
 
 # ======== Main ============================================================== #
 if __name__ == "__main__":

@@ -16,7 +16,7 @@
     </div>
     <div id="navbar-menu-id" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item">
+        <a id="nav-login-field" class="navbar-item">
           <div class="field">
             <p class="control has-icons-left">
               <input class="login-input input is-small is-success" type="text" id="login-user" placeholder="Username">
@@ -26,7 +26,7 @@
             </p>
           </div>
         </a>
-        <a class="navbar-item">
+        <a id="nav-login-field" class="navbar-item">
           <div class="field">
             <p class="control has-icons-left">
               <input class="login-input input is-small is-success" type="password" id="login-pass" placeholder="Password">
@@ -64,8 +64,8 @@
         <div class="column is-auto">
           <div id="signup-box" class="signup-box">
             <div class="signup-area">
-              <h1 class="title" id="signup">Sign Up</h1>
-              <h1 id="login-button" href="#" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">Log In</h1>
+              <h1 id="signup" class="title">Sign Up</h1>
+              <h1 id="login-text" href="#" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">Log In</h1>
               <div class="field">
                 <p class="control has-icons-left has-icons-right">
                   <input id="signup-user" class="input is-success" type="text" placeholder="Username">
