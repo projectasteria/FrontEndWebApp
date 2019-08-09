@@ -1,15 +1,55 @@
+
+/*
+h6 {
+  position: fixed;
+  overflow: hidden;
+  margin-left: 2em;
+}
+*/
+
+.columns {
+  z-index: 1;
+  -webkit-animation: fade-in 1.2s linear both;
+	        animation: fade-in 1.2s linear both;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* mobile phones or tablets */
 @media only screen and (max-width: 768px) {
-  .hero.body {
+  .hero-body {
     height: 100vh;
   }
 
+  /* login page styling begins*/
   .columns {
     display: block;
-    margin-top: 10%;
+    margin-top: 3%;
   }
 
-  .column is-auto {
-    margin-bottom: 15%;
+  .column {
+    margin-bottom: 10%;
   }
 
   .title is-2 {
@@ -26,35 +66,70 @@
 
   .signup-box {
     width: 70%;
-    padding: 3%;
+    padding: 2%;
   }
 
   #signup {
     display: none;
   }
 
-  #login-button {
-    font-size: 3em;
+  #login-text {
+    font-size: 2.5em;
     margin-bottom: 5%;
     cursor: pointer;
     display: block;
   }
 
   ::-webkit-input-placeholder {
-    font-size: 1.5em;
+    font-size: 1.2em;
   }
 
   #signup-button {
-    font-size: 1.8em;
-    width: 30%;
+    font-size: 1.2em;
+    width: 50%;
+    height: auto;
+  }
+  /* login page styling ends */
+  
+  a#nav-login-field {
+      text-align: center;
+      float: left;
+  }
+
+  div#navbar-menu-id {
+    margin-left: 13%;
+  }
+
+  .nav-bar-end {
+    margin-left: 20%;
+  }
+
+  #nav-buttons {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: auto;
+  }
+  
+  #logout-settings {
+    text-align: center;
+    margin-left: 35%;
+    /* margin-right: auto; */
+}
+
+  #login-button {
+    margin-top: -1%;
+    margin-left: 3%;
   }
 }
 
-#login-button {
-  display: none;
+/* laptops or desktops */
+@media only screen and (min-width: 768px) {
+  #login-text {
+    display: none;
+  }
 }
 
-/***** form styling *****/
+/***** form styling begins *****/
 .login-input {
   width: 130px;
 }
@@ -84,7 +159,7 @@
 .settings-area {
   padding: 30px;
 }
-/***** form styling *****/
+/***** form styling ends *****/
 
 
 footer {
