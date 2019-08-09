@@ -39,7 +39,7 @@ h6 {
 /* mobile phones or tablets */
 @media only screen and (max-width: 768px) {
   .hero-body {
-    height: 100vh;
+    height: 140vh;
   }
 
   /* login page styling begins*/
@@ -65,7 +65,7 @@ h6 {
   }
 
   .signup-box {
-    width: 70%;
+    width: 60%;
     padding: 2%;
   }
 
@@ -96,9 +96,11 @@ h6 {
       float: left;
   }
 
+  /*
   div#navbar-menu-id {
-    margin-left: 13%;
+    margin-left: 13%; 
   }
+  */
 
   .nav-bar-end {
     margin-left: 20%;
@@ -106,8 +108,9 @@ h6 {
 
   #nav-buttons {
     text-align: center;
-    margin-left: 10%;
+    margin-left: 25%;
     margin-right: auto;
+    display: inline-grid;
   }
   
   #logout-settings {
