@@ -69,3 +69,8 @@ $("#navbar-burger-id").click(function () {
     $("#navbar-menu-id").addClass("is-active");
   }
 });
+
+var fixed = document.querySelector(".fixed"),
+    distanceFromTop = fixed.getBoundingClientRect().top;
+fixed.style.top = distanceFromTop + 'px';
+fixed.style.bottom = 'auto';
