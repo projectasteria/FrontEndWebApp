@@ -10,3 +10,4 @@ urllib3
 pymongo
 flask-dropzone
 flask-uploads
+dnspython
