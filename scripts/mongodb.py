@@ -12,6 +12,8 @@ if "credentials.json" not in os.listdir('.'):
 else:
     data = json.load(open("credentials.json", "r"))
 
+MONGO_CLIENT = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+
 class User:
     def __init__(self, username, email, password):
         self.username = username
@@ -21,7 +23,7 @@ class User:
         return '<User %r>' % self.username
 
 def add_user(username, password, email):
-    client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+    client = MONGO_CLIENT
     collection = client.asteria.usercred
     entry = {"username": username.lower(), "password":password, "email":email.lower(), "time_of_creation":datetime.datetime.utcnow()}
     collection.insert_one(entry)
@@ -29,7 +31,7 @@ def add_user(username, password, email):
     return True
 
 def log(action, ip, username, incoming, outgoing, status):
-    client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+    client = MONGO_CLIENT
     collection = client.asteria.logs
     entry = {"username":username.lower(), "action":action, "ip": ip, "incoming": incoming, "outgoing":outgoing, "status":status, "timestamp": datetime.datetime.utcnow()}
     collection.insert_one(entry)
@@ -37,7 +39,7 @@ def log(action, ip, username, incoming, outgoing, status):
     return True
 
 def credentials_valid(username, password):
-    client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+    client = MONGO_CLIENT
     collection = client.asteria.usercred
     res = collection.find_one({"username":username.lower()})
     client.close()
@@ -46,7 +48,7 @@ def credentials_valid(username, password):
     return False
 
 def username_taken(username):
-    client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+    client = MONGO_CLIENT
     collection = client.asteria.usercred
     res = collection.find_one({"username":username.lower()})
     client.close()
@@ -56,7 +58,7 @@ def username_taken(username):
 
 def get_user():
     username = session['username']
-    client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+    client = MONGO_CLIENT
     collection = client.asteria.usercred
     res = collection.find_one({"username":username.lower()})
     client.close()
@@ -70,6 +72,6 @@ def hash_password(password):
 
 def change_user(password, email):
     username = session['username']
-    client = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+    client = MONGO_CLIENT
     collection = client.asteria.usercred
     collection.update_one({'username':username.lower()}, {"$set":{"password": password, "email": email}})

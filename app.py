@@ -7,13 +7,18 @@ import sys
 import requests
 from flask import Flask, redirect, render_template, request, session, url_for
 
-from scripts import forms, helpers, mongodb, tabledef
+from scripts import forms, mongodb
+
+from flask_dropzone import Dropzone
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asteria"
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 
 API_URL = "https://placeholderapi.herokuapp.com"
+
+dropzone = Dropzone(app)
 
 # Heroku
 # from flask_heroku import Heroku
@@ -122,10 +127,53 @@ def settings():
     mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
     return redirect(url_for("login"))
 
-# -------- Pages ------------------------------------------------------------- #
-@app.route("/start-experiment")
+# -------- Pages and Uploading-------------------------------------------------- #
+app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
+app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
+app.config['DROPZONE_REDIRECT_VIEW'] = 'start'
+
+# Upload settings that have to be changed for storing in Azure Blob
+app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/uploads'
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
+patch_request_class(app)  
+
+@app.route("/start-experiment", methods=['GET', 'POST'])
 def start():
+    if "file_urls" not in session:
+        session['file_urls'] = []
+    file_urls = session['file_urls']
+
+    # handle image upload from Dropzone
+    if request.method == 'POST':
+        file_obj = request.files
+        for f in file_obj:
+            file = request.files.get(f)
+            
+            # save the file to photos folder
+            filename = photos.save(
+                file,
+                name=file.filename    
+            )
+
+            file_urls.append(photos.url(filename))
+            
+        session['file_urls'] = file_urls
+        return "uploading..."
     return render_template('start_experiment.html')
+    
+
+@app.route('/results')
+def results():
+    # stay in start experiments page if no images to display
+    if "file_urls" not in session or session['file_urls'] == []:
+        return redirect(url_for('start'))
+        
+    # set the file_urls and remove the session variable
+    file_urls = session['file_urls']
+    session.pop('file_urls', None)
+    return render_template('results.html')
 
 @app.route("/my-experiments")
 def experiments():

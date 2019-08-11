@@ -1,3 +1,4 @@
+@import 'https://fonts.googleapis.com/css?family=Oxygen';
 
 /*
 h6 {
@@ -6,6 +7,23 @@ h6 {
   margin-left: 2em;
 }
 */
+
+h4 {
+  font-size: 1.5em;
+  text-align: center;
+  color: black;
+  font-weight: 600;
+  font-family: "Segoe UI", "Oxygen" sans-serif;
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+.dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
+  color: black;
+  font-family: "Segoe UI", "Oxygen" sans-serif;
+  font-size: 1.3em;
+  text-align: center;
+}
 
 .columns {
   z-index: 1;

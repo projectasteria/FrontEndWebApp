@@ -8,3 +8,5 @@ gunicorn
 flask_testing
 urllib3
 pymongo
+flask-dropzone
+flask-uploads
