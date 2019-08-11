@@ -2,11 +2,12 @@
 {% extends "base.html" %}
 {% block body %}
 {% include "navbar.html" %}
+{{ dropzone.load() }}
+    {{ dropzone.style('border: 2px dashed black; min-height: 4em; width: 50%; text-align: center; display: block; margin-left: auto; margin-right: auto;') }}
 <section class="hero is-primary is-bold is-large">
   <div class="hero-body">
-    
-    Start experiment <br>
-
+  <h4> First, let's add our data </h4>
+  {{ dropzone.create(action_view='start') }}
   </div>
 </section>
 {% endblock %}

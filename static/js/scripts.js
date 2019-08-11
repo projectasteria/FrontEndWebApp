@@ -70,7 +70,14 @@ $("#navbar-burger-id").click(function () {
   }
 });
 
-var fixed = document.querySelector(".fixed"),
-    distanceFromTop = fixed.getBoundingClientRect().top;
-fixed.style.top = distanceFromTop + 'px';
-fixed.style.bottom = 'auto';
+// Hide footer when keyboard pops up
+$(document).on('focus', 'input, textarea', function() 
+{
+	$.mobile.activePage.find("div[data-role='footer']").hide();
+});
+
+$(document).on('blur', 'input, textarea', function() 
+{
+	$.mobile.activePage.find("div[data-role='footer']").show();
+});
+
