@@ -7,6 +7,7 @@ from flask import session
 from pymongo import MongoClient
 
 if "credentials.json" not in os.listdir('.'):
+    print (os.environ)
     data = {"mongo_URI" : os.environ['mongo_URI']}
 
 else:
