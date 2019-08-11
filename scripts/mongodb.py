@@ -7,12 +7,12 @@ from flask import session
 from pymongo import MongoClient
 
 if "credentials.json" not in os.listdir('.'):
-    data = {"mongo_username" : os.environ['mongo_username'], "mongo_password": os.environ['mongo_password'], "mongo_ip": os.environ['mongo_ip'], "mongo_port": os.environ['mongo_port']}
+    data = {"mongo_URI" : os.environ['mongo_URI']}
 
 else:
     data = json.load(open("credentials.json", "r"))
 
-MONGO_CLIENT = MongoClient("mongodb://{}:{}@{}:{}".format(data["mongo_username"], data["mongo_password"], data["mongo_ip"], data["mongo_port"]))
+MONGO_CLIENT = MongoClient(data["mongo_URI"])
 
 class User:
     def __init__(self, username, email, password):
