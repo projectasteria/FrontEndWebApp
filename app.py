@@ -51,11 +51,8 @@ def login():
                         username, request.form, response, 400)
             return json.dumps(response)
         response = render_template("login.html", form=form)
-        mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
         return response
     user = mongodb.get_user()   # Changed to Mongo
-    mongodb.log("visit", request.remote_addr,
-                user.username, "home.html", "-", 200)
     return render_template("home.html", user=user, users=requests.get(API_URL + "/api/v1.0/users").json()["Users"])
 
 
@@ -97,9 +94,7 @@ def signup():
                         username, request.form, response, 400)
             return json.dumps(response)
         response = render_template("login.html", form=form)
-        mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
         return response
-    mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
     return redirect(url_for("login"))
 
 
@@ -121,10 +116,7 @@ def settings():
             return json.dumps(response)
         user = mongodb.get_user()                           # Changed to Mongo
         response = render_template("settings.html", user=user)
-        mongodb.log("visit", request.remote_addr,
-                    "-", "settings.html", "-", 200)
         return response
-    mongodb.log("visit", request.remote_addr, "-", "login.html", "-", 200)
     return redirect(url_for("login"))
 
 # -------- Pages and Uploading-------------------------------------------------- #
